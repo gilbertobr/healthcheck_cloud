@@ -1,3 +1,6 @@
+create-release-prod:
+	@MIX_ENV=prod mix release
+
 build-latest-version:
 	@docker build --label "org.opencontainers.image.source=https://github.com/gilbertobr/healthcheck_cloud" -t ghcr.io/gilbertobr/healthcheck_cloud:latest .
 
