@@ -14,6 +14,7 @@ defmodule HealthcheckCloud do
       |> Floki.parse_document!()
 
     run(rows, country)
+      |> Enum.filter(&(!is_nil(&1)))
   end
 
   defp fetch_data do
