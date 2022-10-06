@@ -1,4 +1,4 @@
-defmodule RestApi.Router do
+defmodule HealthcheckCloud.Router do
   # Bring Plug.Router module into scope
   use Plug.Router
 

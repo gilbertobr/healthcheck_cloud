@@ -10,7 +10,7 @@ defmodule HealthcheckCloud.Application do
     children = [
       {Plug.Cowboy,
        scheme: :http,
-       plug: RestApi.Router,
+       plug: HealthcheckCloud.Router,
        options: [port: Application.get_env(:healthcheck_cloud, :port)]},
        HealthcheckCloud.GenServer
     ]
