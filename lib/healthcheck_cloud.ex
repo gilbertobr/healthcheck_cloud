@@ -32,24 +32,24 @@ defmodule HealthcheckCloud do
   defp get_file_azure(tmp_file),
     do: File.read!(tmp_file)
 
-  # defp table_local(full) do
-  #   status = full |> Floki.find("table.status-table thead tr th span")
+  defp table_local(full) do
+    status = full |> Floki.find("table.status-table thead tr th span")
 
-  #   local =
-  #     Enum.map(status, fn {_a, _b, c} ->
-  #       local = Enum.at(c, 0)
+    local =
+      Enum.map(status, fn {_a, _b, c} ->
+        local = Enum.at(c, 0)
 
-  #       if is_tuple(local) do
-  #         %{local: Enum.at(c, 1)}
-  #       else
-  #         if local != "‡" do
-  #           %{local: local}
-  #         end
-  #       end
-  #     end)
+        if is_tuple(local) do
+          %{local: Enum.at(c, 1)}
+        else
+          if local != "‡" do
+            %{local: local}
+          end
+        end
+      end)
 
-  #   Enum.filter(local, &(!is_nil(&1)))
-  # end
+    Enum.filter(local, &(!is_nil(&1)))
+  end
 
   def run(full, country) do
     filter =
@@ -64,13 +64,13 @@ defmodule HealthcheckCloud do
     filter_status(full, filter)
   end
 
-  defp filter_status(_full, filter) do
-    # gg =
-    #   table_local(full)
-    #   |> Enum.filter(fn x -> x.local != "Products and services" end)
-    #   |> Enum.with_index()
-    #   |> Enum.filter(fn {_a, b} -> b >= 0 and b <= 13 end)
-    #   |> Enum.map(fn {a, _b} -> a end)
+  defp filter_status(full, filter) do
+    gg =
+      table_local(full)
+      |> Enum.filter(fn x -> x.local != "Products and services" end)
+      |> Enum.with_index()
+      |> Enum.filter(fn {_a, b} -> b >= 0 and b <= 13 end)
+      |> Enum.map(fn {a, _b} -> a end)
 
     a = filter |> Floki.find("tr")
 
@@ -105,38 +105,53 @@ defmodule HealthcheckCloud do
            "Hybrid + multicloud"
          ]) == false do
         name = e |> Floki.find("td") |> Enum.at(0) |> parse()
-        status1 = e |> Floki.find("td") |> Enum.at(1) |> parse()
-        status2 = e |> Floki.find("td") |> Enum.at(2) |> parse()
-        status3 = e |> Floki.find("td") |> Enum.at(3) |> parse()
-        status4 = e |> Floki.find("td") |> Enum.at(4) |> parse()
-        status5 = e |> Floki.find("td") |> Enum.at(5) |> parse()
-        status6 = e |> Floki.find("td") |> Enum.at(6) |> parse()
-        status7 = e |> Floki.find("td") |> Enum.at(7) |> parse()
-        status8 = e |> Floki.find("td") |> Enum.at(8) |> parse()
-        status9 = e |> Floki.find("td") |> Enum.at(9) |> parse()
-        status10 = e |> Floki.find("td") |> Enum.at(10) |> parse()
-        status11 = e |> Floki.find("td") |> Enum.at(11) |> parse()
-        status12 = e |> Floki.find("td") |> Enum.at(12) |> parse()
-        status13 = e |> Floki.find("td") |> Enum.at(13) |> parse()
-        status14 = e |> Floki.find("td") |> Enum.at(14) |> parse()
+        status1 = e |> Floki.find("td") |> Enum.at(1) |> parse() |> isnil()
+        status2 = e |> Floki.find("td") |> Enum.at(2) |> parse() |> isnil()
+        status3 = e |> Floki.find("td") |> Enum.at(3) |> parse() |> isnil()
+        status4 = e |> Floki.find("td") |> Enum.at(4) |> parse() |> isnil()
+        status5 = e |> Floki.find("td") |> Enum.at(5) |> parse() |> isnil()
+        status6 = e |> Floki.find("td") |> Enum.at(6) |> parse() |> isnil()
+        status7 = e |> Floki.find("td") |> Enum.at(7) |> parse() |> isnil()
+        status8 = e |> Floki.find("td") |> Enum.at(8) |> parse() |> isnil()
+        status9 = e |> Floki.find("td") |> Enum.at(9) |> parse() |> isnil()
+        status10 = e |> Floki.find("td") |> Enum.at(10) |> parse() |> isnil()
+        status11 = e |> Floki.find("td") |> Enum.at(11) |> parse() |> isnil()
+        status12 = e |> Floki.find("td") |> Enum.at(12) |> parse() |> isnil()
+        status13 = e |> Floki.find("td") |> Enum.at(13) |> parse() |> isnil()
+        status14 = e |> Floki.find("td") |> Enum.at(14) |> parse() |> isnil()
+
+        local1 = gg |> Enum.at(0) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local2 = gg |> Enum.at(1) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local3 = gg |> Enum.at(2) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local4 = gg |> Enum.at(3) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local5 = gg |> Enum.at(4) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local6 = gg |> Enum.at(5) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local7 = gg |> Enum.at(6) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local8 = gg |> Enum.at(7) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local9 = gg |> Enum.at(8) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local10 = gg |> Enum.at(9) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local11 = gg |> Enum.at(10) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local12 = gg |> Enum.at(11) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local13 = gg |> Enum.at(12) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
+        local14 = gg |> Enum.at(13) |> Enum.map(fn {_a, b} -> b end) |> List.to_string()
 
         %{
           name:
             String.slice(String.replace(name, ~r/ +/, " "), 1..-1) |> String.replace("\r\n", ""),
-          status1: status1,
-          status2: status2,
-          status3: status3,
-          status4: status4,
-          status5: status5,
-          status6: status6,
-          status7: status7,
-          status8: status8,
-          status9: status9,
-          status10: status10,
-          status11: status11,
-          status12: status12,
-          status13: status13,
-          status14: status14
+          "#{local1}": status1,
+          "#{local2}": status2,
+          "#{local3}": status3,
+          "#{local4}": status4,
+          "#{local5}": status5,
+          "#{local6}": status6,
+          "#{local7}": status7,
+          "#{local8}": status8,
+          "#{local9}": status9,
+          "#{local10}": status10,
+          "#{local11}": status11,
+          "#{local12}": status12,
+          "#{local13}": status13,
+          "#{local14}": status14
         }
       end
     end)
@@ -172,6 +187,13 @@ defmodule HealthcheckCloud do
 
       {_, _, [{_, [_, {"data-label", status0}], [{_, [_, _], [{_, _, []}]}]}, {_, [_], _}]} ->
         status0
+    end
+  end
+
+  defp isnil(params) do
+    case params do
+      "Blank" -> nil
+      _ -> params
     end
   end
 end
