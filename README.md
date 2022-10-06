@@ -5,6 +5,10 @@
 
 Project was developed to monitor html pages that do not have a publicly exposed API.
 
+## Requirement
+
+* Docker
+
 ## Features
 
 ### [HTML Status Page Azure](https://status.azure.com/en-us/status)
